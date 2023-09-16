@@ -9,14 +9,18 @@ public class Cliente implements Serializable {
 	
 	private Integer id;
 	private String name;
+	private String telefone;
+	private String endereco;
 	
 	public Cliente () {
 		
 	}
-
-	public Cliente(Integer id, String name) {
+	
+	public Cliente(Integer id, String name, String telefone, String endereco) {
 		this.id = id;
 		this.name = name;
+		this.telefone = telefone;
+		this.endereco = endereco;
 	}
 
 	public Integer getId() {
@@ -35,9 +39,25 @@ public class Cliente implements Serializable {
 		this.name = name;
 	}
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(endereco, id, name, telefone);
 	}
 
 	@Override
@@ -49,11 +69,14 @@ public class Cliente implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(telefone, other.telefone);
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", name=" + name + "]";
+		return "Cliente [id=" + id + ", name=" + name + ", telefone=" + telefone + ", endereco=" + endereco + "]";
 	}
+	
+	
 }
