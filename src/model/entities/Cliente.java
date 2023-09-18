@@ -8,7 +8,7 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String name;
+	private String nome;
 	private String telefone;
 	private String endereco;
 	
@@ -16,9 +16,9 @@ public class Cliente implements Serializable {
 		
 	}
 	
-	public Cliente(Integer id, String name, String telefone, String endereco) {
+	public Cliente(Integer id, String nome, String telefone, String endereco) {
 		this.id = id;
-		this.name = name;
+		this.nome = nome;
 		this.telefone = telefone;
 		this.endereco = endereco;
 	}
@@ -31,12 +31,12 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getnome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setnome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getTelefone() {
@@ -57,7 +57,7 @@ public class Cliente implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(endereco, id, name, telefone);
+		return Objects.hash(endereco, id, nome, telefone);
 	}
 
 	@Override
@@ -70,12 +70,12 @@ public class Cliente implements Serializable {
 			return false;
 		Cliente other = (Cliente) obj;
 		return Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name) && Objects.equals(telefone, other.telefone);
+				&& Objects.equals(nome, other.nome) && Objects.equals(telefone, other.telefone);
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", name=" + name + ", telefone=" + telefone + ", endereco=" + endereco + "]";
+		return "Cliente [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", endereco=" + endereco + "]";
 	}
 	
 	

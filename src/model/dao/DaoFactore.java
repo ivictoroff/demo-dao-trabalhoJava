@@ -1,5 +1,11 @@
 package model.dao;
 
-public class DaoFactore {
+import db.DB;
+import model.dao.impl.ClienteDaoJDBC;
 
+public class DaoFactore {
+	
+	public static ClienteDao createClienteDao() {
+		return new ClienteDaoJDBC(DB.getConnection()); // para ocultar a implementacao
+	}
 }
