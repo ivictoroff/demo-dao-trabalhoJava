@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -48,14 +49,12 @@ public class ClienteDaoJDBC implements ClienteDao {
 					+ "WHERE cliente.id = ? "); // e vai buscar de um certo id 
 					
 			st.setInt(1, id); // vai substituir o id q esta na interrogacao 
-			rs /* o resultset/rs recebe o resultado */ = st.executeQuery(); //execute query faz uma busca com oq esta dentro das strings acima
+			rs  = st.executeQuery(); //execute query faz uma busca com oq esta dentro das strings acima
+			/* o resultset/rs recebe o resultado */
+			
 			if (rs.next()) {
 				
-				Cliente obj = new Cliente();
-				obj.setId(rs.getInt("id"));
-				obj.setnome(rs.getString("nome"));
-				obj.setTelefone(rs.getString("telefone"));
-				obj.setEndereco(rs.getString("endereco"));
+				Cliente obj = instancieteCliente(rs);
 				return obj;
 				
 				/*Department dep = new Department();
@@ -73,10 +72,44 @@ public class ClienteDaoJDBC implements ClienteDao {
 		}
 	}
 
+	private Cliente instancieteCliente(ResultSet rs) throws SQLException {
+		Cliente obj = new Cliente();
+		obj.setId(rs.getInt("id"));
+		obj.setnome(rs.getString("nome"));
+		obj.setTelefone(rs.getString("telefone"));
+		obj.setEndereco(rs.getString("endereco"));
+		return obj;
+	}
+
 	@Override
 	public List<Cliente> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		 PreparedStatement st = null;
+		 ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT cliente.* "
+					+"FROM cliente  "
+					+"ORDER BY nome ");
+					
+			rs  = st.executeQuery(); //execute query faz uma busca com oq esta dentro das strings acima
+			/* o resultset/rs recebe o resultado */
+			
+			List <Cliente>list = new ArrayList<>();
+			while (rs.next()) {
+				
+				Cliente obj = instancieteCliente(rs);
+				list.add(obj);
+				
+			}
+			return list;
+		}
+		catch (SQLException e){
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 }
